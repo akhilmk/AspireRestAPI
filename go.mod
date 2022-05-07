@@ -1,4 +1,4 @@
-module github.com/akhilmk/AspireRestAPI
+module github.com/akhilmk/GoRESTAPI
 
 go 1.17
 

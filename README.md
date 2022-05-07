@@ -1,4 +1,4 @@
-# AspireRestAPI
+# GoRESTAPI
 
 A Sample REST API implementaion for Loan Management.
 
