@@ -1,15 +1,15 @@
 package api
 
 import (
-	"net/http"
-
-	handlers "github.com/akhilmk/AspireRestAPI/handlers"
+	"github.com/akhilmk/GoRESTAPI/constant"
+	"github.com/akhilmk/GoRESTAPI/handlers"
+	"github.com/akhilmk/GoRESTAPI/model"
 	"github.com/gorilla/mux"
 )
 
 func NewRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(false)
-	for _, route := range routes {
+	for _, route := range getRoutes() {
 		handler := Logger(route.HandlerFunc, route.Name)
 		router.
 			Methods(route.Method).
@@ -20,31 +20,18 @@ func NewRouter() *mux.Router {
 	return router
 }
 
-const (
-	POST = "POST"
-	GET  = "GET"
-)
-
-type Routes []Route
-
-type Route struct {
-	Name        string
-	Method      string
-	Pattern     string
-	HandlerFunc http.HandlerFunc
-}
-
-var routes = Routes{
-	Route{
-		"Loan",
-		GET,
-		"/loan",
-		handlers.GetLoan,
-	},
-	Route{
-		"Loan",
-		POST,
-		"/loan",
-		handlers.AddLoan,
-	},
+func getRoutes() []model.Route {
+	return []model.Route{
+		{
+			Name:        "Loan",
+			Method:      constant.GET,
+			Pattern:     "/users",
+			HandlerFunc: handlers.GetUser,
+		}, {
+			Name:        "Loan",
+			Method:      constant.POST,
+			Pattern:     "/users",
+			HandlerFunc: handlers.AddUser,
+		},
+	}
 }

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	api "github.com/akhilmk/AspireRestAPI/api"
+	api "github.com/akhilmk/GoRESTAPI/api"
 	"github.com/gorilla/handlers"
 )
 

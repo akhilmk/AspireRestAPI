@@ -4,12 +4,12 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/akhilmk/AspireRestAPI/model"
-	"github.com/akhilmk/AspireRestAPI/service"
-	"github.com/akhilmk/AspireRestAPI/util"
+	"github.com/akhilmk/GoRESTAPI/model"
+	"github.com/akhilmk/GoRESTAPI/service"
+	"github.com/akhilmk/GoRESTAPI/util"
 )
 
-func GetLoan(w http.ResponseWriter, r *http.Request) {
+func GetUser(w http.ResponseWriter, r *http.Request) {
 	data := util.GetQueryParameterFromRequest(r)
 	var err error
 	id := 0
@@ -21,16 +21,16 @@ func GetLoan(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	loan := service.GetLoan(id)
+	loan := service.GetUser(id)
 	res, _ := util.StructToByte(loan)
 	util.WriteResponseMessage(w, http.StatusOK, res)
 }
 
-func AddLoan(w http.ResponseWriter, r *http.Request) {
-	var loanData model.LoanData
+func AddUser(w http.ResponseWriter, r *http.Request) {
+	var loanData model.User
 	err := util.ReadReqBodyAsStruct(r, &loanData)
 
-	service.AddNewLoan(loanData)
+	service.AddUser(loanData)
 
 	if err == nil {
 		res, _ := util.StructToByte(loanData)
