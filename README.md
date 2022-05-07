@@ -1,9 +1,9 @@
 # GoRESTAPI
 
-A Sample REST API implementaion for Loan Management.
+A Sample Boilerplate REST API.
 
 POST : 
-  http://localhost:8080/loan
+  http://localhost:8080/user
  paylod:
   {"amount":50000,"terms":5}
   
