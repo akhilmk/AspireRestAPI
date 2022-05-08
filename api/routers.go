@@ -44,5 +44,11 @@ func getRoutes() []model.Route {
 			Pattern:     "/users/{id}",
 			HandlerFunc: handlers.UpdateUser,
 		},
+		{
+			Name:        "User",
+			Method:      constant.DELETE,
+			Pattern:     "/users/{id}",
+			HandlerFunc: handlers.DeleteUser,
+		},
 	}
 }

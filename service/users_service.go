@@ -45,3 +45,11 @@ func UpdateUser(id int, user model.User) model.User {
 	}
 	return user
 }
+func DeleteUser(id int) model.User {
+	user := model.User{}
+	result := dbaccess.GetDBSession().Delete(&model.User{}, id)
+	if result.Error != nil {
+		log.Println("Error deleting user")
+	}
+	return user
+}

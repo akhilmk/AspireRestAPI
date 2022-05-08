@@ -80,3 +80,19 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	res, _ := util.StructToByte(user)
 	util.WriteResponseMessage(w, http.StatusOK, res)
 }
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	data := util.GetPathParameterFromRequest(r)
+	var err error
+	id := 0
+	if _, ok := data["id"]; ok {
+		id, err = strconv.Atoi(data["id"])
+		if err != nil {
+			util.WriteResponseMessage(w, http.StatusBadRequest, nil)
+			return
+		}
+	}
+
+	user := service.DeleteUser(id)
+	res, _ := util.StructToByte(user)
+	util.WriteResponseMessage(w, http.StatusOK, res)
+}
