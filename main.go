@@ -26,7 +26,7 @@ func main() {
 func processRequestURL(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		r.URL.Path = strings.TrimSuffix(r.URL.Path, "/")
-		// toke verification logic goes here.
+		// token verification logic goes here.
 		next.ServeHTTP(w, r)
 	})
 }

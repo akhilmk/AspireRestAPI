@@ -10,7 +10,21 @@ import (
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	users := service.GetUsers()
+
+	data := util.GetQueryParameterFromRequest(r)
+	var offset, limit int
+
+	if _, ok := data["offset"]; ok {
+		offset, _ = strconv.Atoi(data["offset"])
+	}
+	if _, ok := data["limit"]; ok {
+		limit, _ = strconv.Atoi(data["limit"])
+		if limit == 0 || limit > 100 {
+			limit = 100 // set default users return count limit to 100
+		}
+	}
+
+	users := service.GetUsers(offset, limit)
 	res, _ := util.StructToByte(users)
 	util.WriteResponseMessage(w, http.StatusOK, res)
 }

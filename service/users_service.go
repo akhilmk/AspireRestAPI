@@ -5,6 +5,7 @@ import (
 
 	"github.com/akhilmk/GoRESTAPI/dbaccess"
 	"github.com/akhilmk/GoRESTAPI/model"
+	"gorm.io/gorm"
 )
 
 func AddUser(user model.User) {
@@ -22,9 +23,14 @@ func GetUser(id int) model.User {
 	}
 	return user
 }
-func GetUsers() []model.User {
+func GetUsers(offset, limit int) []model.User {
 	users := []model.User{}
-	result := dbaccess.GetDBSession().Find(&users)
+	var result *gorm.DB
+	if offset == 0 {
+		result = dbaccess.GetDBSession().Limit(limit).Order("user_id desc").Find(&users) // get recent users if offset is zero
+	} else {
+		result = dbaccess.GetDBSession().Limit(limit).Offset(offset).Find(&users)
+	}
 	if result.Error != nil {
 		log.Println("Error getting users")
 	}
