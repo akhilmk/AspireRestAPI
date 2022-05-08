@@ -36,3 +36,12 @@ func GetUsers(offset, limit int) []model.User {
 	}
 	return users
 }
+
+func UpdateUser(id int, user model.User) model.User {
+	user.UserID = id
+	result := dbaccess.GetDBSession().Save(&user)
+	if result.Error != nil {
+		log.Println("Error updating user")
+	}
+	return user
+}

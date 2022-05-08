@@ -38,5 +38,11 @@ func getRoutes() []model.Route {
 			Pattern:     "/users",
 			HandlerFunc: handlers.AddUser,
 		},
+		{
+			Name:        "User",
+			Method:      constant.PUT,
+			Pattern:     "/users/{id}",
+			HandlerFunc: handlers.UpdateUser,
+		},
 	}
 }
