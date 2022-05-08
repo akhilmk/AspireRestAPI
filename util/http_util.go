@@ -3,6 +3,8 @@ package util
 import (
 	"io/ioutil"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func GetQueryParameterFromRequest(r *http.Request) map[string]string {
@@ -14,7 +16,9 @@ func GetQueryParameterFromRequest(r *http.Request) map[string]string {
 	}
 	return queryParams
 }
-
+func GetPathParameterFromRequest(r *http.Request) map[string]string {
+	return mux.Vars(r)
+}
 func WriteResponseMessage(w http.ResponseWriter, status int, responseText []byte) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(status)
@@ -28,6 +32,5 @@ func ReadReqBodyAsStruct(r *http.Request, inter interface{}) error {
 	if err != nil {
 		return err
 	}
-	ByteToStruct(data, &inter)
-	return nil
+	return ByteToStruct(data, &inter)
 }
