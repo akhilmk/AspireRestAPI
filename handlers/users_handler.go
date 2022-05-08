@@ -10,19 +10,8 @@ import (
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	data := util.GetQueryParameterFromRequest(r)
-	var err error
-	id := 0
-	if _, ok := data["id"]; ok {
-		id, err = strconv.Atoi(data["id"])
-		if err != nil {
-			util.WriteResponseMessage(w, http.StatusBadRequest, nil)
-			return
-		}
-	}
-
-	loan := service.GetUser(id)
-	res, _ := util.StructToByte(loan)
+	users := service.GetUsers()
+	res, _ := util.StructToByte(users)
 	util.WriteResponseMessage(w, http.StatusOK, res)
 }
 
@@ -38,8 +27,8 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	loan := service.GetUser(id)
-	res, _ := util.StructToByte(loan)
+	user := service.GetUser(id)
+	res, _ := util.StructToByte(user)
 	util.WriteResponseMessage(w, http.StatusOK, res)
 }
 

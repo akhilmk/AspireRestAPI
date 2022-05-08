@@ -1,16 +1,18 @@
 package config
 
 import (
-	"encoding/json"
 	"errors"
 	"log"
 	"os"
+
+	"github.com/akhilmk/GoRESTAPI/model"
+	"github.com/akhilmk/GoRESTAPI/util"
 )
 
 const CONFIG_FILE = "config/config.json"
 const CONFIG_FILE_ERROR = "ERROR: config.json file not present in current directory"
 
-var AppConfig config
+var AppConfig model.Config
 
 func init() {
 	loadAppConfig()
@@ -24,16 +26,8 @@ func loadAppConfig() {
 	}
 
 	jsonData, _ := os.ReadFile(CONFIG_FILE)
-	err := json.Unmarshal(jsonData, &AppConfig)
+	err := util.ByteToStruct(jsonData, &AppConfig)
 	if err != nil {
 		log.Fatal(err)
 	}
-}
-
-// Struct to hold application configurations.
-type config struct {
-	DbInt  bool   `json:"db_init"`
-	DbHost string `json:"db_host"`
-	DbUser string `json:"db_user"`
-	DbName string `json:"db_name"`
 }

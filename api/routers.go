@@ -30,7 +30,7 @@ func getRoutes() []model.Route {
 		}, {
 			Name:        "User",
 			Method:      constant.GET,
-			Pattern:     "/users/{username}/{emal}",
+			Pattern:     "/users/{id}",
 			HandlerFunc: handlers.GetUser,
 		}, {
 			Name:        "User",

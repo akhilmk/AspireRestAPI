@@ -6,5 +6,5 @@ type User struct {
 	Email    string `json:"email,omitempty"`
 	Gender   string `json:"gender,omitempty"`
 	Age      int    `json:"age,omitempty"`
-	Mobile   int    `json:"mobile" gorm:"-"`
+	Mobile   int    `json:"mobile,omitempty" gorm:"-"`
 }

@@ -15,6 +15,18 @@ func AddUser(user model.User) {
 }
 
 func GetUser(id int) model.User {
-	//return db.GetLoan(id)
-	return model.User{}
+	user := model.User{}
+	result := dbaccess.GetDBSession().First(&user, id)
+	if result.Error != nil {
+		log.Println("Error getting user")
+	}
+	return user
+}
+func GetUsers() []model.User {
+	users := []model.User{}
+	result := dbaccess.GetDBSession().Find(&users)
+	if result.Error != nil {
+		log.Println("Error getting users")
+	}
+	return users
 }
