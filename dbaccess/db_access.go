@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/akhilmk/GoRESTAPI/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -40,7 +41,7 @@ func GetDBSession() *gorm.DB {
 
 func connectToDBSession() {
 	dns := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=%s TimeZone=%s",
-		"localhost", "postgres", "postgres", "userdb", 5432, "disable ", "Asia/Kolkata")
+		config.AppConfig.DbHost, config.AppConfig.DbUser, "postgres", config.AppConfig.DbName, 5432, "disable ", "Asia/Kolkata")
 
 	pgConf := postgres.New(postgres.Config{DSN: dns})
 	gormConf := &gorm.Config{}
