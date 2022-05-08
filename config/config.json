@@ -1,5 +1,5 @@
 {
-    "db_init":true,
+    "db_init": false,
     "db_host":"localhost",
     "db_user":"postgres",
     "db_name":"userdb"

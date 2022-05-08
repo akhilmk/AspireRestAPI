@@ -2,6 +2,7 @@ package dbaccess
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 
 	"github.com/akhilmk/GoRESTAPI/config"
@@ -9,22 +10,30 @@ import (
 	"gorm.io/gorm"
 )
 
+const DB_SCHEMA_FILE = "config/db_schema.sql"
+
 // DB session for db operation.
 var dbSession *gorm.DB
 
 func init() {
-	createAndInitDB()
+	connectAndInitDB()
 }
 
-func createAndInitDB() {
+func connectAndInitDB() {
 	db := GetDBSession()
 
-	// read query file to create tables
-	result := db.Exec("")
-	if result.Error != nil {
-		log.Fatal("Error table creation")
+	if config.AppConfig.DbInt {
+		fileByte, err := ioutil.ReadFile(DB_SCHEMA_FILE)
+		if err != nil {
+			log.Fatal("Error schema file reading")
+		}
+
+		result := db.Exec(string(fileByte))
+		if result.Error != nil {
+			log.Fatal("Error table creation")
+		}
+		log.Println("DB Tables created")
 	}
-	log.Println("DB Tables created")
 }
 
 // Injecting db session for Unit testing purpose
