@@ -40,7 +40,7 @@ func GetDBSession() *gorm.DB {
 
 func connectToDBSession() {
 	dns := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=%s TimeZone=%s",
-		"localhost", "postgres", "postgres", "aspire", 5432, "disable ", "Asia/Kolkata")
+		"localhost", "postgres", "postgres", "userdb", 5432, "disable ", "Asia/Kolkata")
 
 	pgConf := postgres.New(postgres.Config{DSN: dns})
 	gormConf := &gorm.Config{}

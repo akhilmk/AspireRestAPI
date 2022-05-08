@@ -23,12 +23,17 @@ func NewRouter() *mux.Router {
 func getRoutes() []model.Route {
 	return []model.Route{
 		{
-			Name:        "Loan",
+			Name:        "User",
 			Method:      constant.GET,
 			Pattern:     "/users",
+			HandlerFunc: handlers.GetUsers,
+		}, {
+			Name:        "User",
+			Method:      constant.GET,
+			Pattern:     "/users/{username}/{emal}",
 			HandlerFunc: handlers.GetUser,
 		}, {
-			Name:        "Loan",
+			Name:        "User",
 			Method:      constant.POST,
 			Pattern:     "/users",
 			HandlerFunc: handlers.AddUser,
