@@ -15,11 +15,7 @@ const DB_SCHEMA_FILE = "config/db_schema.sql"
 // DB session for db operation.
 var dbSession *gorm.DB
 
-func init() {
-	connectAndInitDB()
-}
-
-func connectAndInitDB() {
+func ConnectAndInitDB() {
 	db := GetDBSession()
 
 	if config.AppConfig.DbInt {

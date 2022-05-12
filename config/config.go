@@ -14,12 +14,8 @@ const CONFIG_FILE_ERROR = "ERROR: config.json file not present in current direct
 
 var AppConfig model.Config
 
-func init() {
-	loadAppConfig()
-}
-
 // Loading json config file.
-func loadAppConfig() {
+func LoadAppConfig() {
 
 	if _, err := os.Stat(CONFIG_FILE); errors.Is(err, os.ErrNotExist) {
 		log.Fatal(CONFIG_FILE_ERROR)
