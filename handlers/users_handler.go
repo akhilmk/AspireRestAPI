@@ -4,10 +4,17 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/akhilmk/GoRESTAPI/dbaccess"
 	"github.com/akhilmk/GoRESTAPI/model"
 	"github.com/akhilmk/GoRESTAPI/service"
 	"github.com/akhilmk/GoRESTAPI/util"
 )
+
+var repo service.IUserRepo
+
+func initRepo() {
+	repo = service.GetUserRepo(dbaccess.GetDBSession())
+}
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 
@@ -24,7 +31,11 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	users := service.GetUsers(offset, limit)
+	if repo == nil {
+		initRepo()
+	}
+
+	users := repo.GetUsers(offset, limit)
 	res, _ := util.StructToByte(users)
 	util.WriteResponseMessage(w, http.StatusOK, res)
 }
@@ -41,7 +52,10 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	user := service.GetUser(id)
+	if repo == nil {
+		initRepo()
+	}
+	user := repo.GetUser(id)
 	res, _ := util.StructToByte(user)
 	util.WriteResponseMessage(w, http.StatusOK, res)
 }
@@ -50,7 +64,10 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	var user model.User
 	err := util.ReadReqBodyAsStruct(r, &user)
 
-	service.AddUser(user)
+	if repo == nil {
+		initRepo()
+	}
+	repo.AddUser(user)
 
 	if err == nil {
 		res, _ := util.StructToByte(user)
@@ -76,7 +93,10 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user = service.UpdateUser(id, user)
+	if repo == nil {
+		initRepo()
+	}
+	user = repo.UpdateUser(id, user)
 	res, _ := util.StructToByte(user)
 	util.WriteResponseMessage(w, http.StatusOK, res)
 }
@@ -92,7 +112,10 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	user := service.DeleteUser(id)
+	if repo == nil {
+		initRepo()
+	}
+	user := repo.DeleteUser(id)
 	res, _ := util.StructToByte(user)
 	util.WriteResponseMessage(w, http.StatusOK, res)
 }
